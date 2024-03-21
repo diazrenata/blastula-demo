@@ -1,0 +1,39 @@
+---
+title: "Blastula email demo"
+author: "Renata"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+```
+
+## Writing an email
+
+```{r}
+
+recipient_email <- "renatadiaz@arizona.edu"
+
+my_email <- compose_email(
+  header = "Hi!",
+        body = "This is an email sent with blastula.",
+        footer = "P.S. Probably you want to do this with a service app!"
+      )
+
+ smtp_send(
+        my_email,
+        from = "psinetrcn@gmail.com",
+        to = recipient_email,
+        subject = "Hi from blastula!",
+        credentials = creds_envvar(
+          user = "psinetrcn@gmail.com",
+          pass_envvar = "SMTP_PASSWORD",
+          provider = NULL,
+          host = "smtp.gmail.com",
+          port = 465,
+          use_ssl = FALSE
+        )
+      )
+```
